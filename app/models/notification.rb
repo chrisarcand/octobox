@@ -12,6 +12,7 @@ class Notification < ApplicationRecord
                   }
 
   belongs_to :user
+  belongs_to :subject
 
   scope :inbox,    -> { where(archived: false) }
   scope :archived, -> { where(archived: true) }
@@ -39,9 +40,10 @@ class Notification < ApplicationRecord
   end
 
 
-  def subject
-    @subject ||= user.github_client.get(subject_url)
-  end
+  # FIXME: Things depend on this, but interferes with new association.
+  # def subject
+  #   @subject ||= user.github_client.get(subject_url)
+  # end
 
   def state
     subject.merged_at.present? ? 'merged' : subject.state

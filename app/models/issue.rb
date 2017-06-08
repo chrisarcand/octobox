@@ -1,0 +1,2 @@
+class Issue < Subject
+end

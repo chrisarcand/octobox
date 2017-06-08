@@ -1,0 +1,2 @@
+class PullRequest < Subject
+end

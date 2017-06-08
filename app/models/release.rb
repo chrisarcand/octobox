@@ -1,0 +1,2 @@
+class Release < Subject
+end

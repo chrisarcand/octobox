@@ -1,0 +1,2 @@
+class RepositoryInvitation < Subject
+end
