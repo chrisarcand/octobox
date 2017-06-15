@@ -20,7 +20,7 @@ class Notification < ApplicationRecord
   scope :starred,  -> { where(starred: true) }
 
   scope :repo,     ->(repo_name)    { where(repository_full_name: repo_name) }
-  scope :type,     ->(subject_type) { where(subject_type: subject_type) }
+  scope :type,     ->(subject_type) { joins(:subject).where(subjects: { type: subject_type }) }
   scope :reason,   ->(reason)       { where(reason: reason) }
   scope :unread,   ->(unread)       { where(unread: unread) }
   scope :owner,    ->(owner_name)   { where(repository_owner_name: owner_name) }
