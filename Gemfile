@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.4.1'
 
+gem 'pry'
+
 gem 'rails', '~> 5.1'
 gem 'bootstrap-sass'
 gem 'jquery-rails'

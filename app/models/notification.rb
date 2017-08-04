@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 class Notification < ApplicationRecord
   include PgSearch
-  pg_search_scope :search_by_subject_title,
-                  against: :subject_title,
-                  using: {
-                    tsearch: {
-                      prefix: true,
-                      negation: true,
-                      dictionary: "english"
-                    }
-                  }
+  # FIXME
+  # pg_search_scope :search_by_subject_title,
+  #                 against: :subject_title,
+  #                 using: {
+  #                   tsearch: {
+  #                     prefix: true,
+  #                     negation: true,
+  #                     dictionary: "english"
+  #                   }
+  #                 }
 
   belongs_to :user
   belongs_to :subject
@@ -90,6 +91,10 @@ class Notification < ApplicationRecord
   def update_from_api_response(api_response, unarchive: false)
     attrs = Notification.attributes_from_api_response(api_response)
     self.attributes = attrs
+    if new_record?
+      self.subject = Subject.new(url: "url from response")
+      subject.sync!
+    end
     unarchive_if_updated if unarchive
     save(touch: false) if changed?
   end
